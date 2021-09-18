@@ -7,6 +7,28 @@ namespace MotorbikeSpecs.Data
     {
         public BraapDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<Motorbike> Motorbikes { get; set; } = default!;
+        public DbSet<Company> Companies { get; set; } = default!;
+        public DbSet<Review> Reviews { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Motorbike>()
+                .HasOne(p => p.Company)
+                .WithMany(s => s.Motorbikes)
+                .HasForeignKey(p => p.CompanyId);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(c => c.User)
+                .WithMany(s => s.Reviews)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(c => c.Motorbike)
+                .WithMany(p => p.Reviews)
+                .HasForeignKey(c => c.MotorbikeId);
+        }
     }
 }

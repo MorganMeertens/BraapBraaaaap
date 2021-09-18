@@ -2,16 +2,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MotorbikeSpecs.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using MotorbikeSpecs.Data;
+using MotorbikeSpecs.GraphQL.Users;
+using MotorbikeSpecs.GraphQL.Companies;
+using MotorbikeSpecs.GraphQL.Motorbikes;
+using MotorbikeSpecs.GraphQL.Reviews;
 
 namespace MotorbikeSpecs
 {
@@ -28,6 +32,17 @@ namespace MotorbikeSpecs
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPooledDbContextFactory<BraapDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddGraphQLServer()
+                .AddQueryType(d => d.Name("Query"))
+                    .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<MotorbikeQueries>()
+                    .AddTypeExtension<CompanyQueries>()
+                .AddType<UserType>()
+                .AddType<ReviewType>()
+                .AddType<CompanyType>()
+                .AddType<MotorbikeType>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,11 +57,9 @@ namespace MotorbikeSpecs
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGraphQL();
             });
         }
     }

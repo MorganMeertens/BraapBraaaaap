@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace MotorbikeSpecs.Model
 {
-    public class User
+    public class Company
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string UserName { get; set; }
+        public string CompanyName { get; set; }
 
         [Required]
-        public string GitHub { get; set; }
+        public string WebURL { get; set; }
 
-        public string ImageURI { get; set; }
+        public string LogoURL { get; set; }
 
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public ICollection<Motorbike> Motorbikes { get; set; } = new List<Motorbike>();
 
     }
-
 }
-
