@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MotorbikeSpecs.Model;
-using MarvelCinematicUniverse_DB.Extensions;
+using MotorbikeSpecs.Extensions;
 using HotChocolate.Data;
 
 namespace MotorbikeSpecs.GraphQL.Users
@@ -16,7 +16,6 @@ namespace MotorbikeSpecs.GraphQL.Users
     {
         [UseBraapDbContext]
         [UsePaging]
-        [UseFiltering]
         public IQueryable<User> GetAllUsers([ScopedService] BraapDbContext context)
         {
             return context.Users;

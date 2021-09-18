@@ -1,7 +1,7 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
-using MarvelCinematicUniverse_DB.Extensions;
+using MotorbikeSpecs.Extensions;
 using MotorbikeSpecs.Data;
 using MotorbikeSpecs.Model;
 using System;
@@ -16,7 +16,6 @@ namespace MotorbikeSpecs.GraphQL.Motorbikes
     {
         [UseBraapDbContext]
         [UsePaging]
-        [UseFiltering]
         public IQueryable<Motorbike> GetAllMotorbikes([ScopedService] BraapDbContext context)
         {
             return context.Motorbikes.OrderBy(c => c.Created);

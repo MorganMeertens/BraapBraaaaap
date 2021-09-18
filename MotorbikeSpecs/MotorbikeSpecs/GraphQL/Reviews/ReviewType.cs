@@ -1,6 +1,8 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
 using MotorbikeSpecs.Data;
+using MotorbikeSpecs.GraphQL.Motorbikes;
+using MotorbikeSpecs.GraphQL.Users;
 using MotorbikeSpecs.Model;
 using System;
 using System.Collections.Generic;
@@ -22,13 +24,13 @@ namespace MotorbikeSpecs.GraphQL.Reviews
                 .Field(s => s.Motorbike)
                 .ResolveWith<Resolvers>(r => r.GetMotorbikeByReview(default!, default!, default))
                 .UseDbContext<BraapDbContext>()
-                .Type<NonNullType<ReviewType>>();
+                .Type<NonNullType<MotorbikeType>>();
 
             descriptor
                 .Field(s => s.User)
                 .ResolveWith<Resolvers>(r => r.GetUserByReview(default!, default!, default))
                 .UseDbContext<BraapDbContext>()
-                .Type<NonNullType<ReviewType>>();
+                .Type<NonNullType<UserType>>();
 
             descriptor.Field(p => p.Modified).Type<NonNullType<DateTimeType>>();
             descriptor.Field(p => p.Created).Type<NonNullType<DateTimeType>>();

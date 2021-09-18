@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using HotChocolate.Types;
 
-namespace MarvelCinematicUniverse_DB.Data
+namespace MotorbikeSpecs.Data
 {
     public static class ObjectFieldDescriptorExtensions
     {

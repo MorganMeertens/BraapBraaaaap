@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using MarvelCinematicUniverse_DB.Data;
+using MotorbikeSpecs.Data;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 using MotorbikeSpecs.Data;
 
-namespace MarvelCinematicUniverse_DB.Extensions
+namespace MotorbikeSpecs.Extensions
 {
     public class UseBraapDbContextAttribute : ObjectFieldDescriptorAttribute
     {

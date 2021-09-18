@@ -15,7 +15,8 @@
       "launchUrl": "graphql",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "ancmHostingModel": "OutOfProcess"
     },
     "MotorbikeSpecs": {
       "commandName": "Project",
