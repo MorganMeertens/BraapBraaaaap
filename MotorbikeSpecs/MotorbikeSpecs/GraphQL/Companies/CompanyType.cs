@@ -19,7 +19,7 @@ namespace MotorbikeSpecs.GraphQL.Companies
             descriptor.Field(s => s.Id).Type<NonNullType<IdType>>();
             descriptor.Field(s => s.CompanyName).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.WebURL).Type<NonNullType<StringType>>();
-            descriptor.Field(s => s.LogoURL).Type<NonNullType<StringType>>();
+            descriptor.Field(s => s.CountryOfOrigin).Type<NonNullType<StringType>>();
 
             descriptor
                 .Field(s => s.Motorbikes)

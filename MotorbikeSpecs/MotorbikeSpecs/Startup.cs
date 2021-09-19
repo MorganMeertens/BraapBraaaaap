@@ -38,6 +38,7 @@ namespace MotorbikeSpecs
                     .AddTypeExtension<UserQueries>()
                     .AddTypeExtension<MotorbikeQueries>()
                     .AddTypeExtension<CompanyQueries>()
+                    .AddTypeExtension<ReviewQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<MotorbikeMutations>()
                     .AddTypeExtension<CompanyMutations>()

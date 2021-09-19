@@ -4,6 +4,6 @@
             (
             string CompanyName,
             string WebURL,
-            string? LogoURL);
+            string? CountryOfOrigin);
 
 }

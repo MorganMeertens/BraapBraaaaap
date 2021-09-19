@@ -2,7 +2,6 @@
 using MotorbikeSpecs.Data;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using MotorbikeSpecs.Data;
 
 namespace MotorbikeSpecs.Extensions
 {

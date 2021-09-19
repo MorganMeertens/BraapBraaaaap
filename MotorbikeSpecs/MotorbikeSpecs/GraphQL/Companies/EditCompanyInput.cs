@@ -10,5 +10,5 @@ namespace MotorbikeSpecs.GraphQL.Companies
         string CompanyId,
         string CompanyName,
         string WebURL,
-        string? LogoURL);
+        string? CountryOfOrigin);
 }

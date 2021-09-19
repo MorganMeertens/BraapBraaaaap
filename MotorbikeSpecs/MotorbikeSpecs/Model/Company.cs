@@ -15,9 +15,9 @@ namespace MotorbikeSpecs.Model
         public string CompanyName { get; set; }
 
         [Required]
-        public string WebURL { get; set; }
+        public string WebURL { get; set; } = null!;
 
-        public string LogoURL { get; set; }
+        public string CountryOfOrigin { get; set; } = null!;
 
         public ICollection<Motorbike> Motorbikes { get; set; } = new List<Motorbike>();
 

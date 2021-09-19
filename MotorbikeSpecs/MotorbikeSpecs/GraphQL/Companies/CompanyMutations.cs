@@ -21,7 +21,7 @@ namespace MotorbikeSpecs.GraphQL.Companies
                 {
                     CompanyName = input.CompanyName,
                     WebURL = input.WebURL,
-                    LogoURL = input.LogoURL,
+                    CountryOfOrigin = input.CountryOfOrigin,
                 };
 
                 context.Companies.Add(company);
@@ -38,7 +38,7 @@ namespace MotorbikeSpecs.GraphQL.Companies
 
                 company.CompanyName = input.CompanyName ?? company.CompanyName;
                 company.WebURL = input.WebURL ?? company.WebURL;
-                company.LogoURL = input.LogoURL ?? company.LogoURL;
+                company.CountryOfOrigin = input.CountryOfOrigin ?? company.CountryOfOrigin;
 
                 await context.SaveChangesAsync(cancellationToken);
 
