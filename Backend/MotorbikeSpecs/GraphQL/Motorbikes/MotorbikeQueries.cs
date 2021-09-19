@@ -26,5 +26,12 @@ namespace MotorbikeSpecs.GraphQL.Motorbikes
         {
             return context.Motorbikes.Find(id);
         }
+
+        [UseBraapDbContext]
+        [UsePaging]
+        public IQueryable<Motorbike> GetAllMotorbikesByCompany(string company, [ScopedService] BraapDbContext context)
+        {
+            return context.Motorbikes.Where(c => c.Company.CompanyName == company);
+        }
     }
 }
