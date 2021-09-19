@@ -12,7 +12,7 @@ namespace MotorbikeSpecs.Model
         public int Id { get; set; }
 
         [Required]
-        public string CompanyName { get; set; }
+        public string CompanyName { get; set; } = null!;
 
         [Required]
         public string WebURL { get; set; } = null!;

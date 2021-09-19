@@ -17,6 +17,7 @@ using MotorbikeSpecs.GraphQL.Companies;
 using MotorbikeSpecs.GraphQL.Motorbikes;
 using MotorbikeSpecs.GraphQL.Reviews;
 
+
 namespace MotorbikeSpecs
 {
     public class Startup
