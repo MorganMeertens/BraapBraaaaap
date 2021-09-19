@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: "./Backend/MotorbikeSpecs"
 
     steps:
       - uses: actions/checkout@v2
