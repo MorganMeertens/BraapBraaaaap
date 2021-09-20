@@ -205,7 +205,7 @@ namespace MotorbikeSpecs.GraphQL.Motorbikes
 
         public static String GetBraapAPIKey()
         {
-            var keyVaultUrl = "https://braap-apikey.vault.azure.net/";
+            var keyVaultUrl = "https://braap-apikeys.vault.azure.net/";
             var credential = new DefaultAzureCredential();
             var client = new SecretClient(vaultUri: new Uri(keyVaultUrl), credential);
             KeyVaultSecret secret = client.GetSecret("BraapAPIKey");
@@ -215,7 +215,7 @@ namespace MotorbikeSpecs.GraphQL.Motorbikes
 
         public static String GetYoutubeAPIKey()
         {
-            var keyVaultUrl = "https://braap-apikey.vault.azure.net/";
+            var keyVaultUrl = "https://braap-apikeys.vault.azure.net/";
             var credential = new DefaultAzureCredential();
             var client = new SecretClient(vaultUri: new Uri(keyVaultUrl), credential);
             KeyVaultSecret secret = client.GetSecret("YoutubeAPIKey");
