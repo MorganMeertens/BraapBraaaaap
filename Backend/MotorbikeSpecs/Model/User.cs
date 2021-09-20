@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotorbikeSpecs.Model
 {
-    public class User
+    public class BraapUser
     {
         [Key]
         public int Id { get; set; }

@@ -19,8 +19,8 @@ namespace MotorbikeSpecs.Model
         public Motorbike Motorbike { get; set; } = null!;
 
         [Required]
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public int BraapUserId { get; set; }
+        public BraapUser BraapUser { get; set; } = null!;
 
         public DateTime Modified { get; set; }
 

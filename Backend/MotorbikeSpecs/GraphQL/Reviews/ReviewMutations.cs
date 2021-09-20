@@ -22,7 +22,7 @@ namespace MotorbikeSpecs.GraphQL.Reviews
             {
                 Content = input.Content,
                 MotorbikeId = int.Parse(input.MotorbikeId),
-                UserId = int.Parse(input.UserId),
+                BraapUserId = int.Parse(input.BraapUserId),
                 Modified = DateTime.Now,
                 Created = DateTime.Now,
             };

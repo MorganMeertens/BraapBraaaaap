@@ -9,22 +9,22 @@ using MotorbikeSpecs.Model;
 using MotorbikeSpecs.Extensions;
 using HotChocolate.Data;
 
-namespace MotorbikeSpecs.GraphQL.Users
+namespace MotorbikeSpecs.GraphQL.BraapUsers
 {
     [ExtendObjectType(name: "Query")]
-    public class UserQueries
+    public class BraapUserQueries
     {
         [UseBraapDbContext]
         [UsePaging]
-        public IQueryable<User> GetAllUsers([ScopedService] BraapDbContext context)
+        public IQueryable<BraapUser> GetAllBraapUsers([ScopedService] BraapDbContext context)
         {
-            return context.Users;
+            return context.BraapUsers;
         }
 
         [UseBraapDbContext]
-        public User GetUserById(int id, [ScopedService] BraapDbContext context)
+        public BraapUser GetBraapUserById(int id, [ScopedService] BraapDbContext context)
         {
-            return context.Users.Find(id);
+            return context.BraapUsers.Find(id);
         }
     }
 }

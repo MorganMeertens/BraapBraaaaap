@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MotorbikeSpecs.Data;
-using MotorbikeSpecs.GraphQL.Users;
+using MotorbikeSpecs.GraphQL.BraapUsers;
 using MotorbikeSpecs.GraphQL.Companies;
 using MotorbikeSpecs.GraphQL.Motorbikes;
 using MotorbikeSpecs.GraphQL.Reviews;
@@ -36,16 +36,16 @@ namespace MotorbikeSpecs
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                    .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<BraapUserQueries>()
                     .AddTypeExtension<MotorbikeQueries>()
                     .AddTypeExtension<CompanyQueries>()
                     .AddTypeExtension<ReviewQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<MotorbikeMutations>()
                     .AddTypeExtension<CompanyMutations>()
-                    .AddTypeExtension<UserMutations>()
+                    .AddTypeExtension<BraapUserMutations>()
                     .AddTypeExtension<ReviewMutations>()
-                .AddType<UserType>()
+                .AddType<BraapUserType>()
                 .AddType<ReviewType>()
                 .AddType<CompanyType>()
                 .AddType<MotorbikeType>();
