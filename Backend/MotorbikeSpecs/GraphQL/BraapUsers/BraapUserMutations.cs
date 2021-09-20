@@ -16,14 +16,15 @@ using HotChocolate.AspNetCore;
 using MotorbikeSpecs.Data;
 using MotorbikeSpecs.Extensions;
 using MotorbikeSpecs.Model;
+using HotChocolate.AspNetCore.Authorization;
 
 namespace MotorbikeSpecs.GraphQL.BraapUsers
 {
     [ExtendObjectType(name: "Mutation")]
     public class BraapUserMutations
     {
-        [UseBraapDbContext]
-        public async Task<BraapUser> AddUserAsync(AddBraapUserInput input,
+       /* [UseBraapDbContext]
+        public async Task<BraapUser> AddBraapUserAsync(AddBraapUserInput input,
         [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
         {
             var braapuser = new BraapUser
@@ -37,21 +38,23 @@ namespace MotorbikeSpecs.GraphQL.BraapUsers
             await context.SaveChangesAsync(cancellationToken);
 
             return braapuser;
-        }
+        }*/
 
         [UseBraapDbContext]
-        public async Task<BraapUser> EditUserAsync(EditBraapUserInput input,
+        [Authorize]
+        public async Task<BraapUser> EditBraapUserAsync(EditBraapUserInput input, ClaimsPrincipal claimsPrincipal,
                 [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
         {
-            var student = await context.BraapUsers.FindAsync(int.Parse(input.UserId));
 
-            student.UserName = input.UserName ?? student.UserName;
-            student.GitHub = input.GitHub ?? student.GitHub;
-            student.ImageURI = input.ImageURI ?? student.ImageURI;
+            var braapuserIdStr = claimsPrincipal.Claims.First(c => c.Type == "braapuserId").Value;
+            var braapuser = await context.BraapUsers.FindAsync(int.Parse(braapuserIdStr),cancellationToken);
+
+            braapuser.UserName = input.UserName ?? braapuser.UserName;
+            braapuser.ImageURI = input.ImageURI ?? braapuser.ImageURI;
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return student;
+            return braapuser;
         }
 
         [UseBraapDbContext]

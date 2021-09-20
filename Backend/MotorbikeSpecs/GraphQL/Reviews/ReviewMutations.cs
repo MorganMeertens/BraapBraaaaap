@@ -56,6 +56,7 @@ namespace MotorbikeSpecs.GraphQL.Reviews
             }
 
             review.Content = input.Content ?? review.Content;
+            review.Modified = DateTime.Now;
 
             await context.SaveChangesAsync(cancellationToken);
 
