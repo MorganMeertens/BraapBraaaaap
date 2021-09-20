@@ -12,11 +12,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MotorbikeSpecs.Data;
-using MotorbikeSpecs.GraphQL.Users;
+using MotorbikeSpecs.GraphQL.BraapUsers;
 using MotorbikeSpecs.GraphQL.Companies;
 using MotorbikeSpecs.GraphQL.Motorbikes;
 using MotorbikeSpecs.GraphQL.Reviews;
-
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace MotorbikeSpecs
 {
@@ -27,25 +29,45 @@ namespace MotorbikeSpecs
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public static IConfiguration Configuration { get; private set; } = default!;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPooledDbContextFactory<BraapDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidIssuer = "BraapBraaaap",
+                            ValidAudience = "BraapBraaaap-User",
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = signingKey
+                        };
+                });
+
+
+
+            services.AddAuthorization();
+
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                    .AddTypeExtension<UserQueries>()
+                    .AddTypeExtension<BraapUserQueries>()
                     .AddTypeExtension<MotorbikeQueries>()
                     .AddTypeExtension<CompanyQueries>()
                     .AddTypeExtension<ReviewQueries>()
                 .AddMutationType(d => d.Name("Mutation"))
                     .AddTypeExtension<MotorbikeMutations>()
                     .AddTypeExtension<CompanyMutations>()
-                    .AddTypeExtension<UserMutations>()
+                    .AddTypeExtension<BraapUserMutations>()
                     .AddTypeExtension<ReviewMutations>()
-                .AddType<UserType>()
+                .AddType<BraapUserType>()
                 .AddType<ReviewType>()
                 .AddType<CompanyType>()
                 .AddType<MotorbikeType>();
@@ -63,6 +85,8 @@ namespace MotorbikeSpecs
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

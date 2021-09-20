@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorbikeSpecs.Data;
 
 namespace MotorbikeSpecs.Migrations
 {
     [DbContext(typeof(BraapDbContext))]
-    partial class BraapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210920141222_changeNameOfCol")]
+    partial class changeNameOfCol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

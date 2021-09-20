@@ -2,7 +2,7 @@
 using HotChocolate.Types;
 using MotorbikeSpecs.Data;
 using MotorbikeSpecs.GraphQL.Motorbikes;
-using MotorbikeSpecs.GraphQL.Users;
+using MotorbikeSpecs.GraphQL.BraapUsers;
 using MotorbikeSpecs.Model;
 using System;
 using System.Collections.Generic;
@@ -27,10 +27,10 @@ namespace MotorbikeSpecs.GraphQL.Reviews
                 .Type<NonNullType<MotorbikeType>>();
 
             descriptor
-                .Field(s => s.User)
+                .Field(s => s.BraapUser)
                 .ResolveWith<Resolvers>(r => r.GetUserByReview(default!, default!, default))
                 .UseDbContext<BraapDbContext>()
-                .Type<NonNullType<UserType>>();
+                .Type<NonNullType<BraapUserType>>();
 
             descriptor.Field(p => p.Modified).Type<NonNullType<DateTimeType>>();
             descriptor.Field(p => p.Created).Type<NonNullType<DateTimeType>>();
@@ -45,10 +45,10 @@ namespace MotorbikeSpecs.GraphQL.Reviews
                 return await context.Motorbikes.FindAsync(new object[] { review.MotorbikeId }, cancellationToken);
             }
 
-            public async Task<User> GetUserByReview(Review review, [ScopedService] BraapDbContext context,
+            public async Task<BraapUser> GetUserByReview(Review review, [ScopedService] BraapDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Users.FindAsync(new object[] { review.UserId }, cancellationToken);
+                return await context.BraapUsers.FindAsync(new object[] { review.BraapUserId }, cancellationToken);
             }
         }
 

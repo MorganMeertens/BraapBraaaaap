@@ -7,7 +7,7 @@ namespace MotorbikeSpecs.Data
     {
         public BraapDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<BraapUser> BraapUsers { get; set; } = default!;
         public DbSet<Motorbike> Motorbikes { get; set; } = default!;
         public DbSet<Company> Companies { get; set; } = default!;
         public DbSet<Review> Reviews { get; set; } = default!;
@@ -20,9 +20,9 @@ namespace MotorbikeSpecs.Data
                 .HasForeignKey(p => p.CompanyId);
 
             modelBuilder.Entity<Review>()
-                .HasOne(c => c.User)
+                .HasOne(c => c.BraapUser)
                 .WithMany(s => s.Reviews)
-                .HasForeignKey(c => c.UserId)
+                .HasForeignKey(c => c.BraapUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Review>()

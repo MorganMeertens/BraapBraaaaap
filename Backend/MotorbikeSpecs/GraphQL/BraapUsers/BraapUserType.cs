@@ -10,11 +10,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MotorbikeSpecs.GraphQL.Users
+namespace MotorbikeSpecs.GraphQL.BraapUsers
 {
-    public class UserType: ObjectType<User>
+    public class BraapUserType: ObjectType<BraapUser>
     {
-        protected override void Configure(IObjectTypeDescriptor<User> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<BraapUser> descriptor)
         {
             descriptor.Field(s => s.Id).Type<NonNullType<IdType>>();
             descriptor.Field(s => s.UserName).Type<NonNullType<StringType>>();
@@ -30,10 +30,10 @@ namespace MotorbikeSpecs.GraphQL.Users
 
         private class Resolvers //This is where I need to add dataloaders? PrettySure
         {
-            public async Task<IEnumerable<Review>> GetReviewsByUser(User user, [ScopedService] BraapDbContext context,
+            public async Task<IEnumerable<Review>> GetReviewsByUser(BraapUser braapuser, [ScopedService] BraapDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Reviews.Where(c => c.UserId == user.Id).ToArrayAsync(cancellationToken);
+                return await context.Reviews.Where(c => c.BraapUserId == braapuser.Id).ToArrayAsync(cancellationToken);
             }
         }
     }
