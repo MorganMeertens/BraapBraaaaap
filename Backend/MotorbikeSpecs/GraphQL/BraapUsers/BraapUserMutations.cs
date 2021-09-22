@@ -23,39 +23,60 @@ namespace MotorbikeSpecs.GraphQL.BraapUsers
     [ExtendObjectType(name: "Mutation")]
     public class BraapUserMutations
     {
-       /* [UseBraapDbContext]
-        public async Task<BraapUser> AddBraapUserAsync(AddBraapUserInput input,
-        [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
+        /* [UseBraapDbContext]
+         public async Task<BraapUser> AddBraapUserAsync(AddBraapUserInput input,
+         [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
+         {
+             var braapuser = new BraapUser
+             {
+                 UserName = input.UserName,
+                 GitHub = input.GitHub,
+                 ImageURI = input.ImageURI,
+             };
+
+             context.BraapUsers.Add(braapuser);
+             await context.SaveChangesAsync(cancellationToken);
+
+             return braapuser;
+         }
+
+         [UseBraapDbContext]
+         [Authorize]
+         public async Task<BraapUser> EditBraapUserAsync(EditBraapUserInput input, ClaimsPrincipal claimsPrincipal,
+                 [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
+         {
+
+             var braapuserIdStr = claimsPrincipal.Claims.First(c => c.Type == "braapuserId").Value;
+             var braapuser = await context.BraapUsers.FindAsync(int.Parse(braapuserIdStr),cancellationToken);
+
+             braapuser.UserName = input.UserName ?? braapuser.UserName;
+             braapuser.ImageURI = input.ImageURI ?? braapuser.ImageURI;
+
+             await context.SaveChangesAsync(cancellationToken);
+
+             return braapuser;
+         }*/
+
+        [UseBraapDbContext]
+        [Authorize]
+        public async Task<BraapUser> EditSelfAsync(EditSelfInput input, ClaimsPrincipal claimsPrincipal,
+                [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
         {
-            var braapuser = new BraapUser
-            {
-                UserName = input.UserName,
-                GitHub = input.GitHub,
-                ImageURI = input.ImageURI,
-            };
+            var braapuserIdStr = claimsPrincipal.Claims.First(c => c.Type == "braapuserId").Value;
+            var braapuser = await context.BraapUsers.FindAsync(int.Parse(braapuserIdStr), cancellationToken);
+
+            braapuser.UserName = input.UserName ?? braapuser.UserName;
+            braapuser.ImageURI = input.ImageURI ?? braapuser.ImageURI;
 
             context.BraapUsers.Add(braapuser);
             await context.SaveChangesAsync(cancellationToken);
 
             return braapuser;
-        }*/
-
-        [UseBraapDbContext]
-        [Authorize]
-        public async Task<BraapUser> EditBraapUserAsync(EditBraapUserInput input, ClaimsPrincipal claimsPrincipal,
-                [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
-        {
-
-            var braapuserIdStr = claimsPrincipal.Claims.First(c => c.Type == "braapuserId").Value;
-            var braapuser = await context.BraapUsers.FindAsync(int.Parse(braapuserIdStr),cancellationToken);
-
-            braapuser.UserName = input.UserName ?? braapuser.UserName;
-            braapuser.ImageURI = input.ImageURI ?? braapuser.ImageURI;
-
-            await context.SaveChangesAsync(cancellationToken);
-
-            return braapuser;
         }
+
+
+
+
 
         [UseBraapDbContext]
         public async Task<LoginPayload> LoginAsync(LoginInput input, [ScopedService] BraapDbContext context, CancellationToken cancellationToken)
