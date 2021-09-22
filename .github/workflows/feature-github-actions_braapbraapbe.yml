@@ -6,6 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - BraapBraapBE
 on:
   push:
     branches:
+      - main
       - feature/github-actions
   workflow_dispatch:
 
